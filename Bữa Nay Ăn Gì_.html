@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)file:///C:/Users/SVSTORE/Downloads/index%20(1).html -->
+<html lang="vi"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bữa Nay Ăn Gì?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./Bữa Nay Ăn Gì__files/css2" rel="stylesheet">
+
+<style>
+/* ===== 1. MÀU SẮC & FONT: đổi ở đây là cả trang đổi theo ===== */
+:root {
+  --nen: #eef4ea;     /* nền xanh bạc hà nhạt */
+  --chu: #12332e;     /* chữ xanh đen */
+  --phu: #55706a;     /* chữ phụ */
+  --nhan: #d8352a;    /* màu ớt: nút chính */
+  --vang: #f5c518;    /* màu vàng: khung kết quả */
+  --trang: #ffffff;
+}
+* { box-sizing: border-box; margin: 0; }
+body {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  background: var(--nen);
+  color: var(--chu);
+  line-height: 1.6;
+}
+.khung { max-width: 980px; margin: 0 auto; padding: 32px 20px 56px; }
+h1 { font-size: clamp(2rem, 6vw, 3.4rem); font-weight: 800; line-height: 1.1; }
+.gioi-thieu { color: var(--phu); margin: 10px 0 28px; max-width: 52ch; }
+
+/* ===== 2. BỐ CỤC: 2 cột trên máy tính, 1 cột trên điện thoại ===== */
+.luoi { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 720px) { .luoi { grid-template-columns: 1fr; } }
+
+.bang { background: var(--trang); border-radius: 16px; padding: 24px; border: 2px solid var(--chu); }
+.bang h2 { font-size: 1.1rem; margin-bottom: 14px; }
+label, legend { font-weight: 600; font-size: .95rem; }
+select {
+  width: 100%; padding: 10px; margin: 6px 0 18px;
+  font: inherit; border: 2px solid var(--chu); border-radius: 8px; background: var(--trang);
+}
+fieldset { border: 0; padding: 0; margin: 0 0 18px; }
+.chon { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-weight: 400; }
+.chon input { width: 18px; height: 18px; accent-color: var(--nhan); }
+
+button {
+  font: inherit; font-weight: 600; cursor: pointer;
+  padding: 12px 18px; border-radius: 10px; border: 2px solid var(--chu);
+  background: var(--trang); color: var(--chu);
+}
+button:hover { background: #dfeadb; }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid var(--nhan); outline-offset: 2px; }
+.chinh { background: var(--nhan); color: #fff; border-color: var(--nhan); width: 100%; font-size: 1.05rem; }
+.chinh:hover { background: #b92a20; }
+
+/* ===== 3. KHUNG KẾT QUẢ ===== */
+.ketqua { background: var(--vang); text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 300px; }
+.ten-mon { font-size: clamp(2rem, 7vw, 3rem); font-weight: 800; line-height: 1.15; margin: 8px 0; overflow-wrap: anywhere; }
+.gia { font-weight: 600; }
+.ghi-chu { font-size: .85rem; color: #4a3d00; margin-top: 14px; }
+.hang-nut { display: flex; gap: 10px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+.hang-nut[hidden] { display: none; }
+
+.yeu-thich { margin-top: 24px; }
+.yeu-thich ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.yeu-thich li { background: var(--trang); border: 2px solid var(--chu); border-radius: 99px; padding: 4px 14px; font-size: .9rem; }
+</style>
+</head>
+
+<body>
+<!-- ===== 4. NỘI DUNG TRANG (HTML) ===== -->
+<main class="khung">
+  <h1>Bữa nay ăn gì?</h1>
+  <p class="gioi-thieu">Chọn ngân sách và khẩu vị, hệ thống sẽ chọn ngẫu nhiên một món phù hợp để bạn khỏi phải phân vân.</p>
+
+  <div class="luoi">
+    <!-- Cột trái: bộ lọc -->
+    <section class="bang" aria-labelledby="tieu-de-loc">
+      <h2 id="tieu-de-loc">Bạn muốn ăn thế nào?</h2>
+
+      <label for="bua">Bữa ăn</label>
+      <select id="bua">
+        <option value="sang">Bữa sáng</option>
+        <option value="trua" selected="">Bữa trưa</option>
+        <option value="toi">Bữa tối</option>
+        <option value="nhe">Ăn nhẹ</option>
+      </select>
+
+      <label for="ngan-sach">Ngân sách tối đa</label>
+      <select id="ngan-sach">
+        <option value="25">Dưới 25.000đ</option>
+        <option value="40" selected="">Dưới 40.000đ</option>
+        <option value="60">Dưới 60.000đ</option>
+      </select>
+
+      <fieldset>
+        <legend>Món cần tránh</legend>
+        <label class="chon"><input type="checkbox" id="khong-cay"> Không cay</label>
+        <label class="chon"><input type="checkbox" id="khong-haisan"> Không hải sản</label>
+        <label class="chon"><input type="checkbox" id="mon-chay"> Chỉ món chay (không thịt, không hải sản)</label>
+      </fieldset>
+
+      <button class="chinh" id="nut-goi-y">Gợi ý cho tôi</button>
+    </section>
+
+    <!-- Cột phải: kết quả -->
+    <section class="bang ketqua" aria-live="polite">
+      <p id="nhan-ket-qua">Món được gợi ý</p>
+      <p class="ten-mon" id="ten-mon">🎲 Bấm nút để bắt đầu</p>
+      <p class="gia" id="gia"></p>
+      <div class="hang-nut" id="hang-nut" hidden="">
+        <button id="nut-doi">Đổi món</button>
+        <button id="nut-luu">Lưu món</button>
+      </div>
+      <p class="ghi-chu">Giá chỉ là mức tham khảo. Nếu có dị ứng, hãy hỏi người bán về thành phần món ăn.</p>
+    </section>
+  </div>
+
+  <section class="bang yeu-thich">
+    <h2>Món yêu thích</h2>
+    <ul id="ds-yeu-thich"><li>Chưa có món nào</li></ul>
+  </section>
+</main>
+
+<script>
+/* ===== 5. DỮ LIỆU: thêm, sửa, xóa món ở đây =====
+   gia: [thấp nhất, cao nhất] tính bằng nghìn đồng
+   bua: món hợp với bữa nào (sang, trua, toi, nhe)
+   cay / haisan / thit: true nếu món có yếu tố đó */
+const MON_AN = [
+  { ten: "Bánh mì trứng",  gia: [15, 20], bua: ["sang","nhe"],         cay: false, haisan: false, thit: false },
+  { ten: "Bánh mì thịt",   gia: [20, 25], bua: ["sang","trua","nhe"],  cay: false, haisan: false, thit: true },
+  { ten: "Xôi mặn",        gia: [15, 20], bua: ["sang"],              cay: false, haisan: false, thit: true },
+  { ten: "Xôi đậu",        gia: [10, 15], bua: ["sang","nhe"],        cay: false, haisan: false, thit: false },
+  { ten: "Phở bò",         gia: [35, 45], bua: ["sang","trua","toi"], cay: false, haisan: false, thit: true },
+  { ten: "Phở chay",       gia: [25, 30], bua: ["sang","trua","toi"], cay: false, haisan: false, thit: false },
+  { ten: "Bún bò Huế",     gia: [35, 45], bua: ["trua","toi"],        cay: true,  haisan: false, thit: true },
+  { ten: "Mì Quảng",       gia: [30, 40], bua: ["trua","toi"],        cay: false, haisan: false, thit: true },
+  { ten: "Bún chả cá",     gia: [30, 40], bua: ["sang","trua"],       cay: false, haisan: true,  thit: false },
+  { ten: "Cơm gà",         gia: [30, 35], bua: ["trua","toi"],        cay: false, haisan: false, thit: true },
+  { ten: "Cơm tấm sườn",   gia: [35, 45], bua: ["trua","toi"],        cay: false, haisan: false, thit: true },
+  { ten: "Cơm chay",       gia: [25, 30], bua: ["trua","toi"],        cay: false, haisan: false, thit: false },
+  { ten: "Bún thịt nướng", gia: [30, 40], bua: ["trua","toi"],        cay: false, haisan: false, thit: true },
+  { ten: "Hủ tiếu",        gia: [30, 40], bua: ["sang","trua","toi"], cay: false, haisan: false, thit: true },
+  { ten: "Mì cay",         gia: [35, 45], bua: ["trua","toi"],        cay: true,  haisan: false, thit: true },
+  { ten: "Bánh canh cua",  gia: [35, 50], bua: ["trua","toi"],        cay: false, haisan: true,  thit: false },
+  { ten: "Cháo gà",        gia: [25, 30], bua: ["sang","toi"],        cay: false, haisan: false, thit: true },
+  { ten: "Bánh xèo",       gia: [30, 40], bua: ["trua","toi"],        cay: false, haisan: true,  thit: false },
+  { ten: "Bánh tráng trộn",gia: [15, 25], bua: ["nhe"],               cay: true,  haisan: false, thit: false },
+  { ten: "Chè",            gia: [15, 20], bua: ["nhe"],               cay: false, haisan: false, thit: false },
+  { ten: "Bún đậu mắm tôm",gia: [35, 50], bua: ["trua","toi"],        cay: false, haisan: true,  thit: true },
+  { ten: "Mì xào rau củ",  gia: [20, 30], bua: ["trua","toi"],        cay: false, haisan: false, thit: false },
+  { ten: "Bún riêu",       gia: [30, 40], bua: ["sang","trua"],       cay: false, haisan: true,  thit: false },
+  { ten: "Gỏi cuốn",       gia: [20, 30], bua: ["nhe"],               cay: false, haisan: true,  thit: false },
+  { ten: "Đậu hũ sốt cà",  gia: [25, 30], bua: ["trua","toi"],        cay: false, haisan: false, thit: false }
+];
+
+/* ===== 6. LOGIC: xử lý khi người dùng bấm nút ===== */
+const $ = (id) => document.getElementById(id);   // viết tắt cho getElementById
+let daHienThi = [];       // các món đã gợi ý, để "Đổi món" không bị lặp
+let monHienTai = null;
+let yeuThich = [];
+
+// Bước 1: lọc danh sách theo điều kiện người dùng chọn
+function locMon() {
+  const bua = $("bua").value;
+  const nganSach = Number($("ngan-sach").value);
+  return MON_AN.filter((m) =>
+    m.bua.includes(bua) &&
+    m.gia[1] <= nganSach &&
+    !($("khong-cay").checked && m.cay) &&
+    !($("khong-haisan").checked && m.haisan) &&
+    !($("mon-chay").checked && (m.thit || m.haisan))
+  );
+}
+
+// Bước 2: chọn ngẫu nhiên một món, ưu tiên món chưa xuất hiện
+function chonNgauNhien(ds) {
+  let chuaCo = ds.filter((m) => !daHienThi.includes(m.ten));
+  if (chuaCo.length === 0) { daHienThi = []; chuaCo = ds; }  // hết món mới thì bắt đầu lại
+  return chuaCo[Math.floor(Math.random() * chuaCo.length)];
+}
+
+// Bước 3: hiển thị kết quả (có hiệu ứng đảo tên món ngắn)
+function hienKetQua(mon) {
+  monHienTai = mon;
+  daHienThi.push(mon.ten);
+  $("ten-mon").textContent = mon.ten.toUpperCase();
+  $("gia").textContent = "Giá tham khảo: " + mon.gia[0] + ".000 – " + mon.gia[1] + ".000 đồng";
+  $("hang-nut").hidden = false;
+  $("nut-luu").textContent = yeuThich.includes(mon.ten) ? "Đã lưu" : "Lưu món";
+}
+
+function goiY() {
+  const ds = locMon();
+  if (ds.length === 0) {
+    $("ten-mon").textContent = "Chưa có món phù hợp";
+    $("gia").textContent = "Hãy tăng ngân sách hoặc bỏ bớt điều kiện cần tránh.";
+    $("hang-nut").hidden = true;
+    return;
+  }
+  const chon = chonNgauNhien(ds);
+  const giamChuyenDong = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (giamChuyenDong || ds.length === 1) { hienKetQua(chon); return; }
+
+  // Đảo tên các món khoảng 0,7 giây rồi hiện món thật
+  $("gia").textContent = "";
+  $("hang-nut").hidden = true;
+  let dem = 0;
+  const timer = setInterval(() => {
+    $("ten-mon").textContent = ds[Math.floor(Math.random() * ds.length)].ten.toUpperCase();
+    if (++dem >= 7) { clearInterval(timer); hienKetQua(chon); }
+  }, 100);
+}
+
+// Bước 4: lưu món yêu thích (lưu vào trình duyệt để lần sau còn)
+function luuMon() {
+  if (!monHienTai || yeuThich.includes(monHienTai.ten)) return;
+  yeuThich.push(monHienTai.ten);
+  try { localStorage.setItem("yeuThich", JSON.stringify(yeuThich)); } catch (e) {}
+  $("nut-luu").textContent = "Đã lưu";
+  veYeuThich();
+}
+
+function veYeuThich() {
+  const ul = $("ds-yeu-thich");
+  ul.textContent = "";
+  if (yeuThich.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = "Chưa có món nào";
+    ul.appendChild(li);
+    return;
+  }
+  yeuThich.forEach((ten) => {
+    const li = document.createElement("li");
+    li.textContent = ten;
+    ul.appendChild(li);
+  });
+}
+
+// Bước 5: gắn sự kiện cho các nút và đọc dữ liệu đã lưu
+$("nut-goi-y").addEventListener("click", () => { daHienThi = []; goiY(); });
+$("nut-doi").addEventListener("click", goiY);
+$("nut-luu").addEventListener("click", luuMon);
+try { yeuThich = JSON.parse(localStorage.getItem("yeuThich")) || []; } catch (e) { yeuThich = []; }
+veYeuThich();
+</script>
+
+
+</body></html>
